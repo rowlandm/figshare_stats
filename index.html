@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Visualization</title>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 5px;
+    }
+
+    .bar {
+      height: 20px;
+      background-color: blue;
+      margin-right: 10px;
+    }
+  </style>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+</head>
+<body>
+  <h1>Data Visualization</h1>
+
+  <div id="views" style="display: none">
+{"totals": 4752}: CMM for Diversity
+-------------------
+
+{"totals": 1033}: Strategic Planning using a Change Management Lifecycle Framework
+-------------------
+
+{"totals": 336}: Practical Intersectionality
+-------------------
+
+{"totals": 376}: Futureproofing eResearch Workforce
+-------------------
+
+{"totals": 431}: Futureproofing Workforce ACMP
+-------------------
+
+{"totals": 998}: Proactive CoP
+-------------------
+
+{"totals": 194}: Engage researchers at scale
+-------------------
+
+{"totals": 150}: Software Carpentry Graduate
+-------------------
+
+{"totals": 209}: S4M VL talk
+-------------------
+
+{"totals": 149}: Peru talk
+-------------------
+
+{"totals": 111}: Software for Strategy
+-------------------
+
+{"totals": 259}: CMM for Data Sharing RDA
+-------------------
+
+{"totals": 797}: Visualising Intersectionality
+-------------------
+
+{"totals": 538}: 15 minute intro to DEI
+-------------------
+
+{"totals": 3136}: Improving Diversity and Inclusion in Senior Leadership: A workshop to help recruit diverse senior leaders
+-------------------
+
+{"totals": 546}: Unconscious bias
+-------------------
+
+{"totals": 212}: Missing narratives RSE
+-------------------
+
+{"totals": 131}: Astronomy Primer
+-------------------
+
+{"totals": 364}: Gene Expression Primer
+  </div>
+
+  <table id="dataTable">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Totals</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <div id="graphContainer"></div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+  <script>
+    // JavaScript code
+    const viewsDiv = document.getElementById('views');
+    const viewsContent = viewsDiv.textContent.trim();
+    const lines = viewsContent.split('\n');
+
+    const dataTable = $('#dataTable').DataTable();
+
+    const re = /\{"totals": (\d+)\}: (.+)/;
+
+    lines.forEach(line => {
+      if (line.includes('totals')) {
+        const match = re.exec(line);
+        let totals = 0;
+        let title = '';
+
+        if (match) {
+          totals = parseInt(match[1]);
+          title = match[2].trim();
+        }
+
+        dataTable.row.add([title, totals]).draw();
+      }
+    });
+
+    $(document).ready(function() {
+      $('#dataTable').DataTable();
+    });
+  </script>
+</body>
+</html>
+
